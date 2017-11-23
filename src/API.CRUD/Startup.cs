@@ -1,4 +1,7 @@
-﻿using API.CRUD.Repositories;
+﻿using API.CRUD.ActionFilters;
+using API.CRUD.Repositories;
+using API.CRUD.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,21 +22,28 @@ namespace API.CRUD
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore() // basic API stuff
+            services.AddMvcCore(config => // basic API stuff
+                    {
+                        config.Filters.Add(new ValidateModelAttribute());
+                    })
                     .AddApiExplorer() // for swagger
-                    .AddDataAnnotations() // for validation
+                    .AddFluentValidation(options => // for validation
+                    {
+                        options.RegisterValidatorsFromAssemblyContaining<Startup>();
+                        options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                    })
                     .AddJsonFormatters(); // for JSON responses
 
             services.AddSingleton<IPersonRepository, PersonRepository>();
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1",
-                             new Info
-                             {
-                                 Title = "Homely API Template",
-                                 Version = "v1"
-                             });
+                options.SwaggerDoc("v1",
+                                   new Info
+                                   {
+                                       Title = "Homely API Template",
+                                       Version = "v1"
+                                   });
             });
         }
 

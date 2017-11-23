@@ -17,10 +17,12 @@ namespace API.CRUD.Repositories
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            A.Configure<Person>()
-             .Fill(person => person.Id)
-             .WithinRange(1, 100);
+            A.Configure<Person>();
             _people = GenFu.GenFu.ListOf<Person>();
+            for (var i = 0; i <= _people.Count; i++)
+            {
+                _people[i].Id = ++i;
+            }
         }
 
         public Task<int> AddAsync(Person person)

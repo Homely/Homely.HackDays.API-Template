@@ -53,11 +53,6 @@ namespace API.CRUD.Controllers
         {
             _logger.LogDebug("Post: {value}", person);
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var personId = await _repository.AddAsync(person)
                                             .ConfigureAwait(false);
             return Created($"/api/people/{personId}", null);
@@ -68,11 +63,6 @@ namespace API.CRUD.Controllers
         public async Task<IActionResult> Put([FromBody] Person person)
         {
             _logger.LogDebug("Put: {value}", person);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             await _repository.UpdateAsync(person)
                              .ConfigureAwait(false);
