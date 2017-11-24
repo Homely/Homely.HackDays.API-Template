@@ -8,26 +8,25 @@ using Xunit;
 
 namespace API.CRUD.UnitTests.Controllers.PeopleController
 {
-    public class PostTests
+    public class DeleteTests
     {
         [Fact]
-        public async Task GivenAModel_Post_AddsAndReturnsCreatedResultWithLocationHeader()
+        public async Task GivenAnId_Delete_DeletesAndReturnsNoContentResult()
         {
             // Arrange
             var fakePerson = Fakes.FakePeople.First();
             var logger = new Mock<ILogger<CRUD.Controllers.PeopleController>>();
             var personRepository = new Mock<IPersonRepository>();
-            const int newPersonId = 100;
-            personRepository.Setup(x => x.AddAsync(fakePerson))
-                            .ReturnsAsync(newPersonId);
+            personRepository.Setup(x => x.DeleteAsync(fakePerson.Id))
+                            .Returns(Task.CompletedTask);
             var controller = new CRUD.Controllers.PeopleController(logger.Object, personRepository.Object);
 
             // Act
-            var result = await controller.Post(fakePerson);
+            var result = await controller.Delete(fakePerson.Id);
 
             // Assert
             personRepository.VerifyAll();
-            result.ShouldBeCreated();
+            result.ShouldBeNoContent();
         }
     }
 }
