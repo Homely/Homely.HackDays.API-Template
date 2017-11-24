@@ -11,28 +11,35 @@ namespace API.CRUD
     {
         public static int Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .Build();
+            // var configuration = new ConfigurationBuilder()
+            //     .SetBasePath(Directory.GetCurrentDirectory())
+            //     .AddJsonFile("appsettings.json", false, true)
+            //     .Build();
 
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
+            // Log.Logger = new LoggerConfiguration()
+            //     .ReadFrom.Configuration(configuration)
+            //     .CreateLogger();
 
             try
             {
                 Log.Information("Starting web host");
 
                 var host = WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
-                                  .UseContentRoot(Directory.GetCurrentDirectory())
-                                  .UseIISIntegration()
-                                  .UseStartup<Startup>()
-                                  .UseConfiguration(configuration)
-                                  .UseSerilog()
-                                  .UseApplicationInsights()
-                                  .Build();
+                    .UseUrls("http://localhost:51459")
+                    .UseStartup<Startup>()
+                    .UseSerilog()
+                    .UseApplicationInsights()
+                    .Build();
+
+                // var host = WebHost.CreateDefaultBuilder(args)
+                // .UseApplicationInsights()
+                //                   .UseContentRoot(Directory.GetCurrentDirectory())
+                //                   .UseIISIntegration()
+                //                   .UseStartup<Startup>()
+                //                   .UseConfiguration(configuration)
+                //                   .UseSerilog()
+                //                   .UseApplicationInsights()
+                //                   .Build();
                 host.Run();
 
                 return 0;
