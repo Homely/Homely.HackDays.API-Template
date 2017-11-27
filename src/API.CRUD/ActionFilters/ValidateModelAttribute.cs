@@ -20,7 +20,6 @@ namespace API.CRUD.ActionFilters
                     }
                 }
 
-                //var modelStateErrors = context.ModelState.ToDictionary(key => key.Key, value => value.Value);
                 var apiErrors = new ApiError(modelStateErrors);
                 context.Result = new BadRequestObjectResult(apiErrors);
             }

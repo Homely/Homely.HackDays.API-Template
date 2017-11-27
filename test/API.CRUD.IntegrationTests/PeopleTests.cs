@@ -17,8 +17,7 @@ namespace API.CRUD.IntegrationTests
         public PeopleTests()
         {
             // Arrange.
-            _client = new TestServer(new WebHostBuilder()
-                                         .UseStartup<Startup>()).CreateClient();
+            _client = new TestServer(new WebHostBuilder().UseStartup<Startup>()).CreateClient();
         }
 
         [Fact]

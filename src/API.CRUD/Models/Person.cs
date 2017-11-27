@@ -7,7 +7,7 @@ namespace API.CRUD.Models
     {
         public int Id { get; set; }
 
-        public DateTime CreatedOn => DateTime.Now;
+        public DateTime CreatedOn => new DateTime(2001, 12, 25, 14, 15, 16);
 
         [Required]
         [StringLength(50)]
