@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace API.CRUD.ActionFilters
@@ -10,7 +11,18 @@ namespace API.CRUD.ActionFilters
         {
             if (!context.ModelState.IsValid)
             {
-                context.Result = new BadRequestObjectResult(context.ModelState);
+                var modelStateErrors = new Dictionary<string, string>();
+                foreach (var error in context.ModelState)
+                {
+                    foreach (var keyValue in error.Value.Errors)
+                    {
+                        modelStateErrors.Add(error.Key, keyValue.ErrorMessage);
+                    }
+                }
+
+                //var modelStateErrors = context.ModelState.ToDictionary(key => key.Key, value => value.Value);
+                var apiErrors = new ApiError(modelStateErrors);
+                context.Result = new BadRequestObjectResult(apiErrors);
             }
         }
     }

@@ -21,6 +21,7 @@ namespace API.CRUD.Repositories
             _people = GenFu.GenFu.ListOf<Person>();
             for (var i = 0; i <= _people.Count; i++)
             {
+                _people[i].Nickname = null;
                 _people[i].Id = ++i;
             }
         }

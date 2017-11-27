@@ -5,15 +5,20 @@
     <StartupObject>API.CRUD.Program</StartupObject>
     <ApplicationInsightsResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsAnnotationResourceId>
+    <Authors>Homely's awesome Developer team!</Authors>
+    <Company>Homely</Company>
+    <Product>Homely - API.CRUD</Product>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Properties\PublishProfiles\homely-api-template - Web Deploy.pubxml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\" />
+    <Compile Remove="Properties\PublishProfiles\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Properties\PublishProfiles\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Properties\PublishProfiles\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
