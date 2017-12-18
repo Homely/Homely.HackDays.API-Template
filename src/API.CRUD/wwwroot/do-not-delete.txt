@@ -1,0 +1,2 @@
+﻿This is needed by VSTS to deem this project a "Web Project".
+https://stackoverflow.com/a/46703244/321946

@@ -39,4 +39,10 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\do-not-delete.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
