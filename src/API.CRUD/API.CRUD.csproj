@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
     <StartupObject>API.CRUD.Program</StartupObject>
     <ApplicationInsightsResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsAnnotationResourceId>

@@ -1,4 +1,4 @@
-# Homely.API.Templates
+# Homely.API.Templates 
 Templates to be used to be build APIs, inspired by the awesome [ASP.NET Core Boilerplate Templates](https://github.com/ASP-NET-Core-Boilerplate/Templates).
 [<img src="https://homelyau.visualstudio.com/_apis/public/build/definitions/f23d4256-dd5b-497f-bba0-2c0098c5e3be/2/badge"/>](https://homelyau.visualstudio.com/API%20Template/_build/index?definitionId=2)
 
