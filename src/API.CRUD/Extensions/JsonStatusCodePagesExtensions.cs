@@ -1,8 +1,10 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace API.CRUD.Extensions
 {
@@ -34,8 +36,10 @@ namespace API.CRUD.Extensions
 
             context.HttpContext.Response.ContentType = JsonContentType;
 
-            // TODO: Replace with the ApiError model?
-            return context.HttpContext.Response.WriteAsync($"{{\"statusCode\": {context.HttpContext.Response.StatusCode}}}");
+            var statusCode = ((HttpStatusCode)context.HttpContext.Response.StatusCode).ToString();
+            var apiError = new ApiError(statusCode);
+            
+            return context.HttpContext.Response.WriteApiErrorsAsJsonAsync(apiError);
         }
     }
 }

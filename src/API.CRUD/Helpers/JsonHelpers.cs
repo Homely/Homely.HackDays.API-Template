@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -7,20 +6,22 @@ namespace API.CRUD
 {
     public static class JsonHelpers
     {
-        private static readonly Lazy<JsonSerializerSettings> LazyJsonSerializerSettings = new Lazy<JsonSerializerSettings>(() =>
+        public static JsonSerializerSettings JsonSerializerSettings 
         {
-            var settings = new JsonSerializerSettings
+            get
+            {
+                var settings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Formatting = Formatting.None,
-                NullValueHandling = NullValueHandling.Include,
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat
             };
 
             settings.Converters.Add(new StringEnumConverter());
+            
             return settings;
-        });
-
-        public static JsonSerializerSettings JsonSerializerSettings => LazyJsonSerializerSettings.Value;
+            }
+        }
     }
 }

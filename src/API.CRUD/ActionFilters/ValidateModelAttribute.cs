@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using API.CRUD.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -20,7 +21,7 @@ namespace API.CRUD.ActionFilters
                     }
                 }
 
-                var apiErrors = new ApiError(modelStateErrors);
+                var apiErrors = modelStateErrors.ToApiErrors();
                 context.Result = new BadRequestObjectResult(apiErrors);
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using API.CRUD.Extensions;
+﻿using API.CRUD.Extensions;
 using API.CRUD.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StackifyMiddleware;
+using System;
 
 namespace API.CRUD
 {
@@ -44,9 +44,7 @@ namespace API.CRUD
             services.AddMvcCore()
                     .AddCustomJsonFormatters()
                     .AddApiExplorer() // for Swagger.
-                    .AddCustomFluentValidation()
-                    .AddFormatterMappings() // TODO: Check what this does.
-                    .AddCustomCors(CorsPolicyName);
+                    .AddCustomFluentValidation();
 
             services.AddSwagger();
 
@@ -57,16 +55,9 @@ namespace API.CRUD
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.JsonExceptionPage(CorsPolicyName);
-            }
-
-            app.JsonStatusCodePages()
+            // We always display errors as json.
+            app.JsonExceptionPage(env.IsDevelopment())
+               .JsonStatusCodePages()
                .UseSwagger()
                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Homely API Template v1"))
                .UseMiddleware<RequestTracerMiddleware>()

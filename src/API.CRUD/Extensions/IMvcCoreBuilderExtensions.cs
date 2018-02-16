@@ -1,12 +1,13 @@
-using System;
 using API.CRUD.ActionFilters;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace API.CRUD.Extensions
 {
+    // ReSharper disable once InconsistentNaming
     public static class IMvcCoreBuilderExtensions
     {
         public static IMvcCoreBuilder AddCustomFluentValidation(this IMvcCoreBuilder mvcCoreBuilder)
@@ -32,27 +33,6 @@ namespace API.CRUD.Extensions
                 options.Formatting = Formatting.Indented;
                 options.Converters.Add(new StringEnumConverter());
             });
-        }
-
-        public static IMvcCoreBuilder AddCustomCors(this IMvcCoreBuilder mvcCoreBuilder,
-                                                    string policyName)
-        {
-            if (mvcCoreBuilder == null)
-            {
-                throw new ArgumentNullException(nameof(mvcCoreBuilder));
-            }
-
-            if (string.IsNullOrWhiteSpace(policyName))
-            {
-                throw new ArgumentException(nameof(policyName));
-            }
-
-            // NOTE: Restrict the origin to any specific SPA url for public facing API's.
-            return mvcCoreBuilder.AddCors(corsOptions =>
-                                              corsOptions.AddPolicy(policyName,
-                                                                    corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin()
-                                                                                                          .AllowAnyHeader()
-                                                                                                          .AllowAnyMethod()));
         }
     }
 }

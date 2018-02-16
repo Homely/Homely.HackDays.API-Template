@@ -1,8 +1,31 @@
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace API.CRUD
 {
+    public class ApiError
+    {
+        public ApiError()
+        {   
+        }
+
+        public ApiError(string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(errorMessage))
+            {
+                throw new ArgumentException(nameof(errorMessage));
+            }
+            
+            Message = errorMessage;
+        }
+
+        public string Key { get; set; }
+
+        public string Message { get; set; }
+    }
+    /*
     public class ApiError
     {
         private const string DefaultErrorKey = "Error";
@@ -53,7 +76,7 @@ namespace API.CRUD
             }
         }
 
-        public void AddError(IDictionary<string, string> errorMessages)
+        public void AddErrors(IDictionary<string, string> errorMessages)
         {
             if (errorMessages == null)
             {
@@ -65,5 +88,25 @@ namespace API.CRUD
                 AddError(error.Key, error.Value);
             }
         }
+        
+        public void AddErrors(ValidationException validationException)
+        {
+            // We either have a collection of errors 
+            //  - or -
+            // We just have an error message.
+            if (validationException.Errors != null &&
+                validationException.Errors. Any())
+            {
+                var errors = validationException.Errors.ToDictionary(key => key.PropertyName, value => value.ErrorMessage);
+                AddErrors(errors);
+            }
+            else
+            {
+                AddError(validationException.Message);
+            }
+        }
+
     }
+
+    */
 }
