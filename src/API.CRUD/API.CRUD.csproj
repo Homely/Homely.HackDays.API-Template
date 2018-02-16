@@ -7,10 +7,20 @@
     <ApplicationInsightsResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsAnnotationResourceId>
     <DebugType>Full</DebugType>
+    <Authors>Homely's awesome Developer team!</Authors>
+    <Company>Homely</Company>
+    <Product>Homely - API.CRUD</Product>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Properties\PublishProfiles\homely-api-template - Web Deploy.pubxml" />
+    <Compile Remove="Properties\PublishProfiles\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Properties\PublishProfiles\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Properties\PublishProfiles\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +35,6 @@
     <PackageReference Include="GenFu" Version="1.4.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="3.4.0" />

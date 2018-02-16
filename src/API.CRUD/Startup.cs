@@ -1,64 +1,66 @@
-﻿using API.CRUD.ActionFilters;
+﻿using API.CRUD.Extensions;
 using API.CRUD.Repositories;
-using API.CRUD.Validators;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Logging;
+using StackifyMiddleware;
+using System;
 
 namespace API.CRUD
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private const string CorsPolicyName = "Default";
+        private readonly ILogger _logger;
+            
+        public Startup(IConfiguration configuration,
+                       ILoggerFactory loggerFactory)
         {
-            Configuration = configuration;
+            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+            _logger = loggerFactory.CreateLogger<Startup>();
+
+            _logger.LogInformation($" <::::[]==0 ------------------------------------------ o==[]::::> {Environment.NewLine} *** Starting WebApi.");
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore(config => // basic API stuff
-                    {
-                        config.Filters.Add(new ValidateModelAttribute());
-                    })
-                    .AddApiExplorer() // for swagger
-                    .AddFluentValidation(options => // for validation
-                    {
-                        options.RegisterValidatorsFromAssemblyContaining<Startup>();
-                        options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                    })
-                    .AddJsonFormatters(); // for JSON responses
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            _logger.LogDebug("Adding common 'REST' Web Api services: Cors, Json responses, etc...");
+
+            services.AddMvcCore()
+                    .AddCustomJsonFormatters()
+                    .AddApiExplorer() // for Swagger.
+                    .AddCustomFluentValidation();
+
+            services.AddSwagger();
 
             services.AddSingleton<IPersonRepository, PersonRepository>();
-
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1",
-                                   new Info
-                                   {
-                                       Title = "Homely API Template",
-                                       Version = "v1"
-                                   });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseStatusCodePages()
+            // We always display errors as json.
+            app.JsonExceptionPage(env.IsDevelopment())
+               .JsonStatusCodePages()
                .UseSwagger()
                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Homely API Template v1"))
-               .UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>()
+               .UseMiddleware<RequestTracerMiddleware>()
                .UseMvc();
         }
     }

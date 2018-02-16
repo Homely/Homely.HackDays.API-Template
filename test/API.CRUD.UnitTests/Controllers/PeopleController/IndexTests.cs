@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using API.CRUD.Repositories;
 using API.CRUD.UnitTests.Helpers;
@@ -13,11 +14,11 @@ namespace API.CRUD.UnitTests.Controllers.PeopleController
         public async Task Index_ReturnsOkResultWithAListOfPeople()
         {
             // Arrange
-            var fakePeople = Fakes.FakePeople;
+            var fakePeople = Fakes.FakePeople.ToArray();
             var logger = new Mock<ILogger<CRUD.Controllers.PeopleController>>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(x => x.GetAsync())
-                            .Returns(Task.FromResult(fakePeople));
+                            .ReturnsAsync(fakePeople);
             var controller = new CRUD.Controllers.PeopleController(logger.Object, personRepository.Object);
 
             // Act

@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.CRUD.Models
 {
     public class Person
     {
         public int Id { get; set; }
+
+        public DateTime CreatedOn => new DateTime(2001, 12, 25, 14, 15, 16);
 
         [Required]
         [StringLength(50)]
@@ -21,5 +24,7 @@ namespace API.CRUD.Models
         [Required]
         [Range(1,150)]
         public int Age { get; set; }
+
+        public string Nickname { get; set; }
     }
 }

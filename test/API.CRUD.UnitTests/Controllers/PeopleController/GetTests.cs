@@ -19,7 +19,7 @@ namespace API.CRUD.UnitTests.Controllers.PeopleController
             var logger = new Mock<ILogger<CRUD.Controllers.PeopleController>>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(x => x.GetAsync(personId))
-                            .Returns(Task.FromResult((Person) null));
+                            .ReturnsAsync((Person) null);
             var controller = new CRUD.Controllers.PeopleController(logger.Object, personRepository.Object);
 
             // Act
@@ -38,7 +38,7 @@ namespace API.CRUD.UnitTests.Controllers.PeopleController
             var logger = new Mock<ILogger<CRUD.Controllers.PeopleController>>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(x => x.GetAsync(fakePerson.Id))
-                            .Returns(Task.FromResult(fakePerson));
+                            .ReturnsAsync(fakePerson);
             var controller = new CRUD.Controllers.PeopleController(logger.Object, personRepository.Object);
 
             // Act

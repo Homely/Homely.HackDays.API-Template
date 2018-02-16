@@ -37,6 +37,7 @@ imagecache/
 [Aa]ssemblies/
 [Rr]aven/
 .vs/
+.vscode/
 
 # Windows Azure
 csx/

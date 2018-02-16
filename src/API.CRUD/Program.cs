@@ -11,6 +11,8 @@ namespace API.CRUD
     {
         public static int Main(string[] args)
         {
+            // SERILOG + Staging/Production builds?
+            // Where is the information gathered from.
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
@@ -25,7 +27,6 @@ namespace API.CRUD
                 Log.Information("Starting web host");
 
                 var host = WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
                                   .UseContentRoot(Directory.GetCurrentDirectory())
                                   .UseIISIntegration()
                                   .UseStartup<Startup>()
@@ -37,9 +38,9 @@ namespace API.CRUD
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(exception, "Host terminated unexpectedly.");
                 return 1;
             }
             finally
