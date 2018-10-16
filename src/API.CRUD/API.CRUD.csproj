@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
     <StartupObject>API.CRUD.Program</StartupObject>
     <ApplicationInsightsResourceId>/subscriptions/f56f7f29-c099-4614-8e89-84521efd7884/resourcegroups/homely-api-template/providers/microsoft.insights/components/homely-api-template</ApplicationInsightsResourceId>
@@ -31,15 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="7.2.1" />
-    <PackageReference Include="GenFu" Version="1.4.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Serilog.AspNetCore" Version="2.1.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="3.4.0" />
-    <PackageReference Include="StackifyMiddleware" Version="2.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.100" />
+    <PackageReference Include="GenFu" Version="1.4.22" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
+    <PackageReference Include="StackifyMiddleware" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
